@@ -42,16 +42,16 @@ class Users(Resource):
     
 class User(Resource):
     @marshal_with(userFields)
-    def get(self, id):
-        user = UserModel.query.filter_by(id=id).first() 
+    def get(self, name):
+        user = UserModel.query.filter_by(name=name).first() 
         if not user: 
             abort(404, message="User not found")
         return user 
     
     @marshal_with(userFields)
-    def patch(self, id):
+    def patch(self, name):
         args = user_args.parse_args()
-        user = UserModel.query.filter_by(id=id).first() 
+        user = UserModel.query.filter_by(name=name).first() 
         if not user: 
             abort(404, message="User not found")
         user.name = args["name"]
@@ -60,8 +60,8 @@ class User(Resource):
         return user 
     
     @marshal_with(userFields)
-    def delete(self, id):
-        user = UserModel.query.filter_by(id=id).first() 
+    def delete(self, name):
+        user = UserModel.query.filter_by(name=name).first() 
         if not user: 
             abort(404, message="User not found")
         db.session.delete(user)
@@ -71,11 +71,11 @@ class User(Resource):
 
     
 api.add_resource(Users, '/api/users/')
-api.add_resource(User, '/api/users/<int:id>')
+api.add_resource(User, '/api/users/<string:name>')
 
 @app.route('/')
 def home():
-    return '<h1>Flask REST API</h1>'
+    return '<p>get req on /api/users to see all users, post req on /api/users to create user, /api/users/soumyo to see specific user</p>'
 
 if __name__ == '__main__':
     app.run(debug=True) 
