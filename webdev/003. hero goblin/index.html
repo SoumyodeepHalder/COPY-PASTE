@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>goblin</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">COC-STATS</a>
+        <ul class="navlist">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Clans</a></li>
+            <li><a href="#">Townhall</a></li>
+            <li><a href="#">Troops</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <img src="menu-line.png" alt="" class="menu-icon">
+    </header>
+    <section class="hero">
+        <div class="hero-text">
+            <h5>#2 Trending</h5>
+            <h4>Lead Supercell</h4>
+            <h1>GOBLIN</h1>
+            <p>Join millions of players worldwide as you build your village, <br> raise a clan, and compete in epic clan wars!!!</p>
+            <a href="#">Compare</a>
+            <a href="#" class="ctaa"><img src="play-fill.png" alt="">Watch Gameplay</a>
+        </div>
+        <div class="hero-img">
+            <img src="goblin.png" alt="">
+        </div>
+    </section>
+    <div class="icons">
+        <a href="#"><img src="instagram-line.png" alt=""></a>
+        <a href="#"><img src="youtube-line.png" alt=""></a>
+        <a href="#"><img src="dribbble-line.png" alt=""></a>
+    </div>
+    <div class="scroll-down">
+        <a href="#"><img src="arrow-down-s-fill.png" alt=""></a>
+    </div>
+    <script>
+        let menu = document.querySelector('.menu-icon');
+        let navlist = document.querySelector('.navlist');
+        let header = document.querySelector('header');
+
+        menu.onclick = () => {
+            navlist.classList.toggle('open')
+        }
+        document.addEventListener ('scroll', ()=>{
+            if (window.scrollY > 0){
+                header.classList.add ('scrolled');
+            }
+            else {
+                header.classList.remove ('scrolled');
+            }
+        })
+    </script>
+</body>
+</html>
