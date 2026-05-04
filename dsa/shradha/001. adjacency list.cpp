@@ -4,13 +4,13 @@
 using namespace std;
 
 class Graph {
-    int v;
+    int V;
     list <int > *l;
 
 public:
     Graph (int v){
-        this -> v=v;
-        l=new list <int > [v];
+        this -> V=v;
+        l=new list <int > [V];
     }
 
     void addEdge (int u, int v){
@@ -19,7 +19,7 @@ public:
     }
 
     void printAdbList (){
-        for (int i=0; i < v;i++){
+        for (int i=0; i < V;i++){
             cout << i << " : ";
             for (int neigh : l[i]){
                 cout << neigh << " ";
