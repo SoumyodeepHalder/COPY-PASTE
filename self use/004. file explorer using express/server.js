@@ -3,7 +3,7 @@ const app=express ();
 const fs = require('fs');
 const cors=require ('cors')
 
-app.use (express.static ('./movies2'));
+app.use (express.static ('./public'));
 app.use (express.json ());
 app.use(cors());
 
