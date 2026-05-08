@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+	html {
+	    background-color: black;
+	}
+        .screen {
+            height: 95vh;
+            /* height: 100%; */
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .video {
+            height: 360px;
+        }
+    </style>
+    <title>anime titan</title>
+</head>
+<body>
+    <div class="screen">
+        <input class="input" type="text" value="">
+        <button class="button" onclick="finnpvideo ()">enter</button>
+        <video class="video" src="levi.mp4" controls="controls"></video>
+        <video class="video" controls></video>
+    </div>
+    <script>
+        const npvideo=document.querySelectorAll ('.video')[0];
+        const pvideo=document.querySelectorAll ('.video')[1];
+        const input=document.querySelector ('.input');
+        const enterbutton=document.querySelector ('.button');
+        let myvideo=npvideo;
+        myvideo.style.display='none';
+        pvideo.style.display='none';
+        let ctime=myvideo.currentTime;
+        let isplaying=false;
+        let ispplaying=false;
+        let isfullscreen=false;
+        function finnpvideo (){
+            input.style.display='none';
+            enterbutton.style.display='none';
+            myvideo.style.display='block';
+            // pvideo.src= 'abcd/'+ input.value+'.mp4';
+            // pvideo.src='file2-p.mp4'
+            
+            pvideo.src= 'http://localhost:3000/'+input.value+'.mp4';
+            
+        }
+        function togglefullscreen(){
+            if (!isfullscreen){
+                myvideo.webkitRequestFullscreen();
+                isfullscreen=true;
+            }
+            else {
+                document.exitFullscreen();
+                isfullscreen=false;
+            }
+        }
+        function playvideo (){
+            // console.log('playvideo ()');
+            if (isplaying){
+                // console.log('if (isplaying)');
+                myvideo.pause ()
+                isplaying=false
+            }
+            else {
+                // console.log('isplaying else');
+                myvideo.play ();
+                isplaying=true
+            }
+        }
+        document.addEventListener ('keydown', event => {
+            // console.log ("document.addEventListener" + event.key)
+            if (event.key=='Control'){
+                // console.log ('event.key== space')
+                playvideo ();
+            }
+            else if (ispplaying && event.key=='ArrowDown'){
+                // console.log('event.key!=space && ispplaying');
+                pvideo.pause ();
+                pvideo.style.display='none';
+                myvideo=npvideo;
+                myvideo.style.display='block';
+                // if (isplaying){
+                //     myvideo.play ();
+                // }
+                isplaying=false;
+                ispplaying=false;
+            }
+            else if (event.key=='ArrowUp' && ispplaying==false) {
+                // console.log('else if event.key== arrow up and ispplaying');
+                npvideo.pause ();
+                npvideo.style.display='none';
+                myvideo=pvideo;
+                myvideo.style.display='block';
+                // if (isplaying){
+                //     myvideo.play ();
+                // }
+                isplaying=false;
+                ispplaying=true;
+            }
+            else if (event.key=='ArrowLeft'){
+                pvideo.currentTime-=5;
+            }
+            else if (event.key=='ArrowRight'){
+                pvideo.currentTime+=5;
+            }
+            else if (event.key=='f'){
+                togglefullscreen ();
+            }
+        })
+    </script>
+</body>
+</html>
