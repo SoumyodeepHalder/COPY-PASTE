@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>client</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            background-color: rgb(30, 30, 30);
+        }
+
+        .nav {
+            height: 50px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            /* justify-content: center; */
+            color: white;
+            padding: 0 10px;
+        }
+
+        .nav img {
+            height: 20px;
+            filter: invert();
+            cursor: pointer;
+        }
+
+        .path {
+            width: 100%;
+            margin: 0 10px;
+            padding: 5px;
+            font-size: 20px;
+            border-radius: 10px;
+            background-color: rgb(50, 50, 50);
+        }
+
+        .fileparent {
+            height: 100%;
+            width: 100%;
+            /* background-color: rgb(50, 50, 50); */
+            /* padding: 10px; */
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+
+        .files {
+            height: 50px;
+            background-color: rgb(50, 50, 50);
+            color: white;
+            margin: 10px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <img src="arrow.png" alt="">
+        <div class="path"></div>
+    </div>
+    <div class="fileparent"></div>
+    <script>
+        const inp = document.querySelector('.inpc');
+        const nav = document.querySelector('.nav img');
+        const fileparent = document.querySelector('.fileparent');
+        const pathdiv = document.querySelector('.path');
+        let currenturl = './public';
+
+
+
+        function run() {
+            let local = 'http://localhost:3000/';
+            let options = {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    "url": `${currenturl}`
+                })
+            };
+
+            fileparent.innerHTML = '';
+            let res = fetch(local, options);
+            res.then((response) => response.json())
+                .then((value) => {
+                    value.forEach((text, index) => {
+                        const newDiv = document.createElement('div');
+                        newDiv.textContent = text;
+                        newDiv.classList.add('files');
+                        newDiv.addEventListener('click', (e) => {
+                            currenturl = currenturl + '/' + value[index];
+                            run();
+                        })
+                        fileparent.appendChild(newDiv);
+                    });
+                });
+            pathdiv.innerHTML = `<p>${currenturl}</p>`
+        }
+        nav.addEventListener('click', () => {
+            let split = currenturl.split('/');
+            if (currenturl != './public') {
+                currenturl = '.';
+                split.pop();
+                split.shift()
+                split.forEach((text, index) => {
+                    currenturl = currenturl + '/' + text;
+                })
+            }
+            run();
+        })
+        run();
+    </script>
+</body>
+
+</html>
