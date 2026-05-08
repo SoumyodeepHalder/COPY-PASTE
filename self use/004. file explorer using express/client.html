@@ -45,10 +45,23 @@
         .fileparent {
             height: 100%;
             width: 100%;
-            /* background-color: rgb(50, 50, 50); */
+            /* background-color: rgb(70, 55, 55); */
             /* padding: 10px; */
             overflow-y: auto;
             scrollbar-width: none;
+        }
+
+        .fileparent.toggle {
+            height: 100%;
+            width: 100%;
+            /* background-color: rgb(70, 55, 55); */
+            height: calc(100vh - 50px);
+            /* padding: 10px; */
+            overflow-y: auto;
+            scrollbar-width: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .files {
@@ -60,6 +73,7 @@
             align-items: center;
             padding: 0 10px;
             cursor: pointer;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -95,16 +109,26 @@
             let res = fetch(local, options);
             res.then((response) => response.json())
                 .then((value) => {
-                    value.forEach((text, index) => {
+                    if (value.isdir)
+                    value.content.forEach((text, index) => {
                         const newDiv = document.createElement('div');
                         newDiv.textContent = text;
                         newDiv.classList.add('files');
                         newDiv.addEventListener('click', (e) => {
-                            currenturl = currenturl + '/' + value[index];
+                            currenturl = currenturl + '/' + value.content[index];
                             run();
                         })
+                        fileparent.classList.remove ('toggle');
                         fileparent.appendChild(newDiv);
                     });
+                    else {
+                        const vid=document.createElement ('video');
+                        vid.src=value.content;
+                        vid.controls=true;
+                        vid.style.height='360px';
+                        fileparent.classList.add ('toggle');
+                        fileparent.appendChild (vid);
+                    }
                 });
             pathdiv.innerHTML = `<p>${currenturl}</p>`
         }
