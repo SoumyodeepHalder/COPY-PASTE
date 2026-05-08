@@ -71,10 +71,23 @@
             margin: 10px;
             display: flex;
             align-items: center;
+            padding: 0 50px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        .folders {
+            height: 50px;
+            background-color: rgb(70, 70, 70);
+            color: white;
+            margin: 10px;
+            display: flex;
+            align-items: center;
             padding: 0 10px;
             cursor: pointer;
             border-radius: 10px;
         }
+
         .videoc {
             height: 360px;
         }
@@ -93,14 +106,21 @@
         const nav = document.querySelector('.nav img');
         const fileparent = document.querySelector('.fileparent');
         const pathdiv = document.querySelector('.path');
-        let currenturl = './public';
+        let source_folder_name = './public'; // change source foldr name here ------------
+        let currenturl = source_folder_name;
         let vid;
-        let levi; 
+        let levi;
         let myvideo;
-        let ctime=0;
-        let isplaying=false;
-        let ispplaying=false;
+        let ctime = 0;
+        let isplaying = false;
+        let ispplaying = false;
 
+
+        function getExtension(filename) {
+            let temp = filename.split('.').pop();
+            console.log(temp);
+            return temp;
+        }
 
         function run() {
             let local = 'http://localhost:3000/';
@@ -118,39 +138,52 @@
             let res = fetch(local, options);
             res.then((response) => response.json())
                 .then((value) => {
-                    if (value.isdir)
-                    value.content.forEach((text, index) => {
-                        const newDiv = document.createElement('div');
-                        newDiv.textContent = text;
-                        newDiv.classList.add('files');
-                        newDiv.addEventListener('click', (e) => {
-                            currenturl = currenturl + '/' + value.content[index];
-                            run();
-                        })
-                        fileparent.classList.remove ('toggle');
-                        fileparent.appendChild(newDiv);
-                    });
+                    if (value.isdir) {
+                        console.log(value.content);
+                        value.content.forEach((text, index) => {
+                            console.log(text);
+                            if ((text.includes('.') && text.split('.').pop() == 'mp4') || !text.includes('.')) {
+                                console.log('...');
+                                const newDiv = document.createElement('div');
+                                newDiv.textContent = text;
+                                if (!text.includes('.')) {
+                                    newDiv.classList.add('folders');
+                                }
+                                else {
+                                    newDiv.classList.add('files');
+                                }
+                                newDiv.addEventListener('click', (e) => {
+                                    currenturl = currenturl + '/' + text;
+                                    run();
+                                })
+                                fileparent.classList.remove('toggle');
+                                fileparent.appendChild(newDiv);
+                            }
+                        });
+                    }
                     else {
-                        levi=document.createElement ('video');
-                        levi.src='levi.mp4';
-                        levi.controls=true;
-                        levi.classList.add ('videoc');
-                        myvideo=levi;
+                        levi = document.createElement('video');
+                        levi.src = 'levi.mp4';
+                        levi.controls = true;
+                        levi.classList.add('videoc');
+                        myvideo = levi;
 
-                        vid=document.createElement ('video');
-                        vid.src=value.content;
-                        vid.controls=true;
-                        vid.style.display='none';
-                        fileparent.classList.add ('toggle');
-                        fileparent.appendChild (levi);
-                        fileparent.appendChild (vid);
+                        vid = document.createElement('video');
+                        vid.src = value.content;
+                        vid.controls = true;
+                        vid.style.display = 'none';
+                        fileparent.classList.add('toggle');
+                        fileparent.appendChild(levi);
+                        fileparent.appendChild(vid);
+
+                        pathdiv.innerHTML = '';
                     }
                 });
-            pathdiv.innerHTML = `<p>${currenturl}</p>`
+            pathdiv.innerHTML = `<p>${currenturl}</p>`;
         }
         nav.addEventListener('click', () => {
             let split = currenturl.split('/');
-            if (currenturl != './public') {
+            if (currenturl != source_folder_name) {
                 currenturl = '.';
                 split.pop();
                 split.shift()
@@ -161,59 +194,59 @@
             run();
         });
 
-        function playvideo (){
+        function playvideo() {
             // console.log('playvideo ()');
-            if (isplaying){
+            if (isplaying) {
                 // console.log('if (isplaying)');
-                myvideo.pause ()
-                isplaying=false
+                myvideo.pause()
+                isplaying = false
             }
             else {
                 // console.log('isplaying else');
-                myvideo.play ();
-                isplaying=true
+                myvideo.play();
+                isplaying = true
             }
         }
-        
-        document.addEventListener ('keydown', event => {
+
+        document.addEventListener('keydown', event => {
             // console.log ("document.addEventListener" + event.key)
-            if (event.key=='Control'){
+            if (event.key == 'Control') {
                 // console.log ('event.key== space')
-                playvideo ();
+                playvideo();
             }
-            else if (ispplaying && event.key=='ArrowDown'){
+            else if (ispplaying && event.key == 'ArrowDown') {
                 // console.log('event.key!=space && ispplaying');
-                vid.pause ();
-                vid.style.display='none';
-                myvideo=levi;
-                myvideo.style.display='block';
+                vid.pause();
+                vid.style.display = 'none';
+                myvideo = levi;
+                myvideo.style.display = 'block';
                 // if (isplaying){
                 //     myvideo.play ();
                 // }
-                isplaying=false;
-                ispplaying=false;
+                isplaying = false;
+                ispplaying = false;
             }
-            else if (event.key=='ArrowUp' && ispplaying==false) {
+            else if (event.key == 'ArrowUp' && ispplaying == false) {
                 // console.log('else if event.key== arrow up and ispplaying');
-                levi.pause ();
-                levi.style.display='none';
-                myvideo=vid;
-                myvideo.style.display='block';
-                myvideo.classList.add ('videoc');
+                levi.pause();
+                levi.style.display = 'none';
+                myvideo = vid;
+                myvideo.style.display = 'block';
+                myvideo.classList.add('videoc');
                 // if (isplaying){
                 //     myvideo.play ();
                 // }
-                isplaying=false;
-                ispplaying=true;
+                isplaying = false;
+                ispplaying = true;
             }
-            else if (event.key=='ArrowLeft'){
-                vid.currentTime-=5;
+            else if (event.key == 'ArrowLeft') {
+                vid.currentTime -= 5;
             }
-            else if (event.key=='ArrowRight'){
-                vid.currentTime+=5;
+            else if (event.key == 'ArrowRight') {
+                vid.currentTime += 5;
             }
-            else if (event.key=='f'){
-                togglefullscreen ();
+            else if (event.key == 'f') {
+                togglefullscreen();
             }
         });
         run();
