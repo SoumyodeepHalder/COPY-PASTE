@@ -99,14 +99,13 @@
         <img src="arrow.png" alt="">
         <div class="path"></div>
     </div>
-    <div class="fileparent">
-    </div>
+    <div class="fileparent"></div>
     <script>
         const inp = document.querySelector('.inpc');
         const nav = document.querySelector('.nav img');
         const fileparent = document.querySelector('.fileparent');
         const pathdiv = document.querySelector('.path');
-        let source_folder_name = './public'; // change source foldr name here ------------
+        let source_folder_name = './abcd'; // change source foldr name here ------------
         let currenturl = source_folder_name;
         let vid;
         let levi;
@@ -139,11 +138,11 @@
             res.then((response) => response.json())
                 .then((value) => {
                     if (value.isdir) {
-                        console.log(value.content);
+                        // console.log(value.content);
                         value.content.forEach((text, index) => {
-                            console.log(text);
+                            // console.log(text);
                             if ((text.includes('.') && text.split('.').pop() == 'mp4') || !text.includes('.')) {
-                                console.log('...');
+                                // console.log('...');
                                 const newDiv = document.createElement('div');
                                 newDiv.textContent = text;
                                 if (!text.includes('.')) {
