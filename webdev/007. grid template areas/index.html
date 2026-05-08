@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grid template areas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: repeat(auto, 7);
+            grid-template-rows: repeat(auto, 12);
+            grid-template-areas: 
+            "sidebar navbar navbar navbar navbar navbar navbar"
+            "sidebar header header header header header header"
+            "sidebar div1 div2 chart chart chart chart"
+            "sidebar div1 div2 chart chart chart chart"
+            "sidebar div3 div4 chart chart chart chart"
+            "sidebar div3 div4 chart chart chart chart"
+            "sidebar list list list list list list "
+            "sidebar list list list list list list "
+            "sidebar list list list list list list"
+            "sidebar list list list list list list"
+            "sidebar list list list list list list"
+            "sidebar list list list list list list"
+            ;
+            gap: 10px;
+            padding: 10px;
+            background-color: rgb(30, 30, 30);
+        }
+        .navbar {
+            grid-area: navbar;
+            background-color: rgb(40, 40, 40);
+        }
+        .sidebar {
+            grid-area: sidebar;
+            background-color: rgb(40, 40, 40);
+        }
+        .header {
+            grid-area: header;
+            background-color: rgb(40, 40, 40);
+        }
+        .div1 {
+            grid-area: div1;
+            background-color: rgb(40, 40, 40);
+        }
+        .div2 {
+            grid-area: div2;
+            background-color: rgb(40, 40, 40);
+        }
+        .div3 {
+            grid-area: div3;
+            background-color: rgb(40, 40, 40);
+        }
+        .div4 {
+            grid-area: div4;
+            background-color: rgb(40, 40, 40);
+        }
+        .chart {
+            grid-area: chart;
+            background-color: rgb(40, 40, 40);
+        }
+        .list {
+            grid-area: list;
+            background-color: rgb(40, 40, 40);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar"></div>
+        <div class="sidebar"></div>
+        <div class="header"></div>
+        <div class="div1"></div>
+        <div class="div2"></div>
+        <div class="div3"></div>
+        <div class="div4"></div>
+        <div class="chart"></div>
+        <div class="list"></div>
+    </div>
+</body>
+</html>
