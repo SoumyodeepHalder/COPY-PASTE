@@ -75,6 +75,9 @@
             cursor: pointer;
             border-radius: 10px;
         }
+        .videoc {
+            height: 360px;
+        }
     </style>
 </head>
 
@@ -83,14 +86,20 @@
         <img src="arrow.png" alt="">
         <div class="path"></div>
     </div>
-    <div class="fileparent"></div>
+    <div class="fileparent">
+    </div>
     <script>
         const inp = document.querySelector('.inpc');
         const nav = document.querySelector('.nav img');
         const fileparent = document.querySelector('.fileparent');
         const pathdiv = document.querySelector('.path');
         let currenturl = './public';
-
+        let vid;
+        let levi; 
+        let myvideo;
+        let ctime=0;
+        let isplaying=false;
+        let ispplaying=false;
 
 
         function run() {
@@ -122,11 +131,18 @@
                         fileparent.appendChild(newDiv);
                     });
                     else {
-                        const vid=document.createElement ('video');
+                        levi=document.createElement ('video');
+                        levi.src='levi.mp4';
+                        levi.controls=true;
+                        levi.classList.add ('videoc');
+                        myvideo=levi;
+
+                        vid=document.createElement ('video');
                         vid.src=value.content;
                         vid.controls=true;
-                        vid.style.height='360px';
+                        vid.style.display='none';
                         fileparent.classList.add ('toggle');
+                        fileparent.appendChild (levi);
                         fileparent.appendChild (vid);
                     }
                 });
@@ -143,7 +159,63 @@
                 })
             }
             run();
-        })
+        });
+
+        function playvideo (){
+            // console.log('playvideo ()');
+            if (isplaying){
+                // console.log('if (isplaying)');
+                myvideo.pause ()
+                isplaying=false
+            }
+            else {
+                // console.log('isplaying else');
+                myvideo.play ();
+                isplaying=true
+            }
+        }
+        
+        document.addEventListener ('keydown', event => {
+            // console.log ("document.addEventListener" + event.key)
+            if (event.key=='Control'){
+                // console.log ('event.key== space')
+                playvideo ();
+            }
+            else if (ispplaying && event.key=='ArrowDown'){
+                // console.log('event.key!=space && ispplaying');
+                vid.pause ();
+                vid.style.display='none';
+                myvideo=levi;
+                myvideo.style.display='block';
+                // if (isplaying){
+                //     myvideo.play ();
+                // }
+                isplaying=false;
+                ispplaying=false;
+            }
+            else if (event.key=='ArrowUp' && ispplaying==false) {
+                // console.log('else if event.key== arrow up and ispplaying');
+                levi.pause ();
+                levi.style.display='none';
+                myvideo=vid;
+                myvideo.style.display='block';
+                myvideo.classList.add ('videoc');
+                // if (isplaying){
+                //     myvideo.play ();
+                // }
+                isplaying=false;
+                ispplaying=true;
+            }
+            else if (event.key=='ArrowLeft'){
+                vid.currentTime-=5;
+            }
+            else if (event.key=='ArrowRight'){
+                vid.currentTime+=5;
+            }
+            else if (event.key=='f'){
+                togglefullscreen ();
+            }
+        });
         run();
     </script>
 </body>
