@@ -1,8 +1,8 @@
 from cryptography.fernet import Fernet
 
-key = ''
-inputfile=''
-outputfile=''
+key = 'm4l6qajoRj7I4ZD_y5CFxn_MUAGoWweQMSlVebsdbic='
+inputfile='encrypted/levi.bin'
+outputfile='decrypted/levi_decrypted.mp4'
 
 # decrypt file
 f=Fernet (key)
