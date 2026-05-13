@@ -1,0 +1,18 @@
+crtl + mouse wheel to zoom in or out
+
+space bar + mouse click and drag to pan around
+
+in the layer panel click on the plus icon to create new layer
+
+double click on the layer to rename it
+
+click on a layer to put shapes inside it
+
+click on the rectange tool then click and dram diagonally to create a rectangle
+press shift to make it a perfect square and press alt to make to grow from the center.
+
+use the selection tool to select an object and move it by clicking and draging.
+
+click on the color icon to change the color of the fill and shape.
+
+don't take too bright colors. take colors with low saturation and brightness.
