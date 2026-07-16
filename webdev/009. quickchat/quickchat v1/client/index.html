@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chat app</title>
+    
+</head>
+
+<body>
+    <!-- screen -->
+    <div class="h-screen bg-black flex flex-col">
+        <!-- navbar -->
+        <div class="h-10 flex items-center justify-start m-3">
+            <img src="chat.png" class="h-10 mr-3">
+            <span class="text-3xl text-white">QuickChat</span>
+        </div>
+        <!-- hero -->
+        <div class="grow flex flex-col items-center">
+            <!-- chat area -->
+            <div class="grow w-[60vw] flex flex-col gap-3" id="chatarea">
+                <!-- <div>
+                    <span class="text-2xl bg-white px-6 py-3 rounded-lg inline-block">hello world</span>
+                </div>
+                <div class="self-end">
+                    <span class="text-2xl bg-white px-6 py-3 rounded-lg inline-block right-0 relative">how are
+                        you?</span>
+                </div> -->
+            </div>
+            <!-- typing area -->
+            <div class="h-15 w-[60vw] flex items-center ">
+                <input id="message-input" type="text" placeholder="Enter Message here..."
+                    class="bg-slate-200 w-[50vw] h-10 rounded-lg px-3 py-3 border-none outline-none">
+                <div id="send-button"
+                    class="text-2xl rounded-lg bg-orange-500 text-white flex justify-center py-1 mx-5 w-20 cursor-pointer">
+                    Send</div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="http://localhost:8000/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
