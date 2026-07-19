@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickChat</title>
+</head>
+
+<body>
+    <div
+        id="loginPage" class="h-screen flex items-center justify-center bg-[linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.9)),url('background.jpg')] bg-cover bg-center">
+        <!-- back arrow -->
+        <a href="index.html" class="absolute top-5 left-5"><img src="arrow.png" class="h-5 invert"></a>
+        
+        <div class="sm:w-[500px] sm:h-[600px] w-full h-full bg-neutral-950 rounded-lg">
+            <!-- heading -->
+            <div class="h-[200px] flex items-center justify-center gap-2 text-white">
+                <img src="account.png" class="h-10 invert">
+                <spanc class="text-3xl">Login</spanc>
+            </div>
+            <!-- middle -->
+            <div class="h-[200px] flex flex-col items-center">
+                <input id="username" type="text" placeholder="Username" class="bg-neutral-950 text-black h-10 rounded-full px-3 py-3 mx-6 w-[400px] border border-gray-100 text-white placeholder:text-gray-100 outline-none mb-6">
+                <input type="text" placeholder="Password" class="bg-neutral-950 text-black h-10 rounded-full px-3 py-3 mx-6 w-[400px] border border-gray-100 text-white placeholder:text-gray-100 outline-none mb-6">
+                <div class=" w-[400px] h-10 mb-12 flex items-center justify-between text-white">
+                    <div>
+                        <input type="checkbox">
+                        <span>Remember me</span>
+                    </div>
+                    <div class="cursor-pointer hover:underline cursor-pointer">Forgot password</div>
+                </div>
+                <div id="submitButton" class="px-6 py-3 bg-neutral-100 w-[400px] rounded-full flex items-center justify-center cursor-pointer">Submit</div>
+            </div>
+            <!-- bottom -->
+             <div class="h-[200px] text-white flex items-center justify-center">
+                <span>Don't have account? <a class="hover:underline font-bold cursor-pointer">Register</a></span>
+             </div>
+        </div>
+    </div>
+
+
+
+    <div
+        id="mainPage" class="hidden bg-[linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.9)),url('background.jpg')] bg-cover bg-center h-screen w-full grid sm:grid-cols-3 md:grid-cols-4">
+        <!-- sidebar -->
+        <div id="sidebarCont" class="h-full col-span-1 bg-neutral-950">
+            <div class="flex items-center mb-8 h-20">
+                <img src="chat.png" class="h-10 mx-4 my-2">
+                <span class="text-white text-3xl">QuickChat</span>
+            </div>
+            <!-- <div class="h-15 flex items-center py-2 m-1 hover:bg-neutral-900">
+                <img src="account.png" class="h-10 invert mx-4">
+                <span class="text-white">Aman Singh</span>
+            </div>
+            <div class="h-15 flex items-center py-2 m-1 hover:bg-neutral-900 bg-neutral-900">
+                <img src="account.png" class="h-10 invert mx-4">
+                <span class="text-white">Ayush badrinath</span>
+            </div>
+            <div class="h-15 flex items-center py-2 m-1 hover:bg-neutral-900">
+                <img src="account.png" class="h-10 invert mx-4">
+                <span class="text-white">amit bhadana</span>
+            </div> -->
+        </div>
+        <!-- middle -->
+        <div class="h-full sm:col-span-2 md:col-span-3 hidden sm:flex flex-col">
+            <!-- navbar -->
+            <div class="h-20 flex items-center justify-between text-white bg-neutral-950">
+                <div class="h-15 flex items-center py-2 m-1">
+                    <img src="account.png" class="h-10 invert mx-4">
+                    <span class="text-white">Group Chat</span>
+                </div>
+                <a href="login.html" class="h-12 rounded-lg  sm:flex items-center justify-center px-4 text-xl mx-4 hidden">
+                    <img src="login.png" class="h-5 invert m-2">
+                    <span id="loginBtn">Login</span>
+                </a>
+            </div>
+            <!-- chat container -->
+            <div id="chatarea" class="flex-1 text-2xl text-white p-4 gap-2 flex flex-col">
+                <!-- <div class="px-4 py-2 bg-neutral-900 inline-block self-start rounded-lg">Hello....</div>
+                <div class="px-4 py-2 bg-neutral-900 inline-block self-end rounded-lg">How are you?</div> -->
+            </div>
+            <!-- typing area -->
+            <div class="h-15 w-full flex items-center px-4 gap-2">
+                <input id="message-input" type="text" placeholder="Enter Message here..."
+                    class="bg-slate-200 flex-1 h-10 rounded-full px-3 py-3 border-none outline-none">
+                <div id="send-button"
+                    class="text-2xl rounded-lg bg-neutral-900 text-white flex justify-center py-1 w-20 cursor-pointer">
+                    Send</div>
+            </div>
+        </div>
+    </div>
+    <!-- </div> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="http://localhost:8000/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
