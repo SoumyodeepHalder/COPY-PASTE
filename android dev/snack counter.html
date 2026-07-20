@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Snack Counter</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    padding: 16px;
+    background: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    display: flex;
+    justify-content: center;
+  }
+
+  .frame {
+    width: 100%;
+    max-width: 420px;
+    height: calc(100vh - 32px);
+    border: 3px solid #000;
+    border-radius: 6px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .row {
+    border: 2px solid #000;
+    border-radius: 4px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .item-name {
+    font-size: 22px;
+    color: #4a2b1a;
+  }
+
+  .counter {
+    display: flex;
+    align-items: stretch;
+    border: 2px solid #000;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .counter button {
+    width: 34px;
+    height: 34px;
+    border: none;
+    background: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .counter button:active {
+    background: #eee;
+  }
+
+  .counter-value {
+    min-width: 34px;
+    height: 34px;
+    border-left: 2px solid #000;
+    border-right: 2px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .footer {
+    display: flex;
+    align-items: stretch;
+    margin-top: 10px;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .total-box {
+    flex: 1;
+    /* border: 2px solid #000;
+    border-radius: 4px; */
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    font-size: 22px;
+    color: #4a2b1a;
+  }
+
+  .reset-button {
+    border: 2px solid #000;
+    border-radius: 4px;
+    background: #fff;
+    padding: 0 24px;
+    font-size: 22px;
+    color: #4a2b1a;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .reset-button:active {
+    background: #eee;
+  }
+</style>
+</head>
+<body>
+
+<div class="frame">
+  <div class="list" id="list"></div>
+
+  <div class="footer">
+    <div class="total-box">Total: <span id="total">0</span></div>
+    <button class="reset-button" id="resetBtn">Reset</button>
+  </div>
+</div>
+
+<script>
+  // Edit items and prices here
+  const ITEMS = [
+    { id: 'chop', name: 'Chop: 7', price: 7 },
+    { id: 'beguni', name: 'Beguni: 8', price: 8 },
+    { id: 'muri', name: 'Muri: 1', price: 1 },
+    { id: 'dalbora', name: 'Dalbora: 3', price: 3 },
+    { id: 'peyaji', name: 'Peyaji: 7', price: 7 },
+    { id: 'papad', name: 'Papad: 7', price: 7 },
+  ];
+
+  const quantities = {};
+  ITEMS.forEach(item => quantities[item.id] = 0);
+
+  const listEl = document.getElementById('list');
+  const totalEl = document.getElementById('total');
+
+  function render() {
+    listEl.innerHTML = '';
+    ITEMS.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'row';
+      row.innerHTML = `
+        <span class="item-name">${item.name}</span>
+        <div class="counter">
+          <button data-action="dec" data-id="${item.id}">-</button>
+          <span class="counter-value">${quantities[item.id]}</span>
+          <button data-action="inc" data-id="${item.id}">+</button>
+        </div>
+      `;
+      listEl.appendChild(row);
+    });
+    updateTotal();
+  }
+
+  function updateTotal() {
+    const total = ITEMS.reduce((sum, item) => sum + quantities[item.id] * item.price, 0);
+    totalEl.textContent = total;
+  }
+
+  listEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const id = btn.dataset.id;
+    if (btn.dataset.action === 'inc') {
+      quantities[id]++;
+    } else if (btn.dataset.action === 'dec') {
+      quantities[id] = Math.max(0, quantities[id] - 1);
+    }
+    render();
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    ITEMS.forEach(item => quantities[item.id] = 0);
+    render();
+  });
+
+  render();
+</script>
+
+</body>
+</html>
